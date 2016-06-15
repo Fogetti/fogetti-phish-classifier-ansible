@@ -1,0 +1,15 @@
+jar_dir: /var/lib/jenkins/workspace/phishclassifier-build/target
+src_dir: /var/lib/jenkins/workspace/phishclassifier-deploy/input
+root_dir: /home/fogetti
+storm_version: "1.0.1"
+storm_dir: "{{ root_dir }}/downloads/apache-storm-{{ storm_version }}"
+bin_dir: "{{ storm_dir }}/bin"
+lib_dir: "{{ storm_dir }}/lib"
+conf_dir: "{{ storm_dir }}/conf"
+logs_dir: "{{ storm_dir }}/logs"
+nfs_dir: "/mnt/gilbertnfs"
+input_dir: "{{ nfs_dir }}/input/classifier"
+
+# Storm app general config
+storm_binary: "{{ bin_dir }}/storm"
+topology_jar: "{{ bin_dir }}/{{ jar_file }}"

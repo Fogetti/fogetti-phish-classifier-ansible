@@ -1,0 +1,26 @@
+---
+
+- name: ensure input folder exists
+  file: path={{ input_dir }} state=directory
+
+- name: copy the count/ps/url/proxy data file to the target server
+  copy: src={{ src_dir }} dest={{ nfs_dir }} owner=fogetti group=fogetti backup=yes
+
+- name: copy the jar file to the target server
+  copy: src={{ jar_dir }}/{{ jar_file }} dest={{ topology_jar }} owner=fogetti group=fogetti backup=yes
+
+- name: list all topologies
+  command: "{{ storm_binary }} list"
+  register: list_toplogies
+
+- name: kill the topology
+  command: "{{ storm_binary }} kill {{ topology_name }}"
+  when: list_toplogies.stdout_lines|last != "No topologies running."
+
+- name: start the topology
+  command: "{{ storm_binary }} jar {{ topology_jar }} {{ main_class }} {{ count_data_file }} {{ ps_data_file }} {{ proxy_data_file }} {{ model_data_file }} {{ instances_data_file }} {{ kafka_topic_request }} {{ kafka_topic_response }} {{ kafka_spout_client_id }} {{ kafka_consumer_partition_number }} {{ kafka_broker_host }} {{ kafka_broker_port }} {{ kafka_broker_connection_timeout_ms }} {{ kafka_zk_connection_string }} {{ kafka_zk_connection_timeout_ms }} {{ redis_host }} {{ redis_port }} {{ redis_password }}"
+  register: start_topology
+  until: start_topology.stdout.find("RuntimeException") == -1
+  retries: 3
+  environment:
+    JAVA_HOME: /usr

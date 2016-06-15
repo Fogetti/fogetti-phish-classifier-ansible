@@ -1,0 +1,5 @@
+---
+- hosts: "{{ env }}_nimbus_servers"
+  roles:
+    - common
+    - classifier
