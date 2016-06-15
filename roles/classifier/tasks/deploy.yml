@@ -4,7 +4,7 @@
   file: path={{ input_dir }} state=directory
 
 - name: copy the count/ps/url/proxy data file to the target server
-  copy: src={{ src_dir }} dest={{ nfs_dir }} owner=fogetti group=fogetti backup=yes
+  copy: src={{ src_dir }} dest={{ input_dir }} owner=fogetti group=fogetti backup=yes
 
 - name: copy the jar file to the target server
   copy: src={{ jar_dir }}/{{ jar_file }} dest={{ topology_jar }} owner=fogetti group=fogetti backup=yes
