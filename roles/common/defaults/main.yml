@@ -1,5 +1,5 @@
 jar_dir: /var/lib/jenkins/workspace/phishclassifier-build/target
-src_dir: /var/lib/jenkins/workspace/phishclassifier-deploy/input
+src_dir: /var/lib/jenkins/workspace/phishclassifier-deploy/classifier
 root_dir: /home/fogetti
 storm_version: "1.0.1"
 storm_dir: "{{ root_dir }}/downloads/apache-storm-{{ storm_version }}"
