@@ -15,7 +15,8 @@
 
 - name: kill the topology
   command: "{{ storm_binary }} kill {{ topology_name }}"
-  when: list_toplogies.stdout_lines|last != "No topologies running."
+  when: (list_toplogies.stdout_lines|last != "No topologies running.") and
+        (list_toplogies.stdout.find('phish-classifier') != -1)
 
 - name: start the topology
   command: "{{ storm_binary }} jar {{ topology_jar }} {{ main_class }} {{ count_data_file }} {{ ps_data_file }} {{ proxy_data_file }} {{ model_data_file }} {{ instances_data_file }} {{ kafka_topic_request }} {{ kafka_topic_response }} {{ kafka_spout_client_id }} {{ kafka_consumer_partition_number }} {{ kafka_broker_host }} {{ kafka_broker_port }} {{ kafka_broker_connection_timeout_ms }} {{ kafka_zk_connection_string }} {{ kafka_zk_connection_timeout_ms }} {{ redis_host }} {{ redis_port }} {{ redis_password }}"
