@@ -1,5 +1,5 @@
 [dev_nimbus_servers]
-dimebag
+nimbus
 
 [dev_nimbus_servers:vars]
 jar_file=fogetti-phish-classifier-0.0.1-SNAPSHOT.jar
